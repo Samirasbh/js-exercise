@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .container{
+            height: 100vh;
+            background-color:rgb(181, 115, 192);
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h3>Enter number</h3>
+    <input type="number" id="number">
+    <button onclick="checkPrime()">check</button>
+    <div id="result"></div>
+    </div>
+    <script>
+
+
+
+        function checkPrime(){
+            number= document.querySelector("#number").value;
+            num = parseInt(number);
+            result = document.querySelector("#result");
+        for(i=2;i<num;i++){
+            if(num%i == 0 ){
+                result.innerText = "number is not prime";
+                break;
+
+            } else {
+                result.innerText = "number is prime";
+            }
+        }
+        }
+    </script>
+</body>
+</html>
