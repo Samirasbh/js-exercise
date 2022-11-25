@@ -6,38 +6,96 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <style>
-        .container{
+        *{
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body{
             height: 100vh;
-            background-color:rgb(181, 115, 192);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color:rgb(62, 82, 138);
+
+        }
+        .container{
+            border: 2px solid rgb(11, 25, 64);
+            box-shadow: 0 0 30px 20px rgb(11, 25, 64);
+            border-radius: 10px;
+            padding: 20px;
             text-align: center;
+            width: 400px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+
+        }
+        h1{
+            color: aliceblue;
+            margin-bottom: 20px;
+        }
+
+
+        p{
+            color: aliceblue;
+            margin-bottom: 10px;
+        }
+        input{
+            width: 40%;
+            padding: 5px;
+            margin:10px auto;
+            border: none;
+            border-radius: 5px;
+        }
+        #result{
+            margin: 10px auto;
+            
+            width: 200px;
+            padding: 10px;
+            color: rgb(184, 184, 61);
+            font-size: 18px;
         }
     </style>
 </head>
 <body>
-
     <div class="container">
-        <h3>Enter number</h3>
-    <input type="number" id="number">
-    <button onclick="checkPrime()">check</button>
-    <div id="result"></div>
+        <h1>is prime or not?</h1>
+        <p>Enter number</p>
+        <input type="number" id="number" onclick="clearInput()">
+        <input type="button" value="check" onclick=checkPrime() >
+        <div id = "result" ></div>
     </div>
     <script>
 
-
-
+        function clearInput(){
+            document.querySelector("#number").value = "";
+            document.querySelector("#result").innerText = "" ;
+        }
+       var counter = 0;
+        denom =[];
+        j=0;
+        flag = true;
         function checkPrime(){
             number= document.querySelector("#number").value;
+           if(number !="" && flag){
             num = parseInt(number);
             result = document.querySelector("#result");
         for(i=2;i<num;i++){
-            if(num%i == 0 ){
-                result.innerText = "number is not prime";
-                break;
-
-            } else {
-                result.innerText = "number is prime";
+            if(num % i == 0) {
+                counter++;
+                denom[j]=i;
+                j++;
             }
+            else continue
         }
+        if(counter == 0) {
+            result.innerText = "number is prime"
+        }else {
+            result.innerText = `number is not prime \n it's divisible to ${denom}`
+        }
+           }
+           flag = false;
         }
     </script>
 </body>
