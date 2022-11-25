@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      body {
+        height: 100vh;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        background-color: #83919e;
+      }
+
+      #winner {
+        font-size: 26px;
+        width: 200px;
+        padding: 10px;
+        text-align: center;
+        background-color: rgba(162, 162, 162, 0.764);
+        border: 4px solid #34495e;
+        border-radius: 10px;
+        display: none;
+      }
+      .holder {
+        width: 800px;
+        height: 500px;
+        padding: 10px;
+        display: grid;
+        grid-template-columns: repeat(8, 10%);
+        justify-content: space-evenly;
+        background-color: #34495e;
+        border-radius: 40px;
+      }
+      .box {
+        border: 5px solid #101922;
+        border-radius: 50%;
+        margin: 5px;
+        background-color: #fff;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>4 in a row game :)</h1>
+    <div class="holder"></div>
+    <p id="winner"></p>
+    <script>
+      // making game board
+      var column = 7;
+      var row = 5;
+      function makeBoard() {
+        for (var r = 0; r <= row; r++) {
+          for (var c = 0; c <= column; c++) {
+            h = document.querySelector(".holder");
+            element = `<div class="box" id='${r}-${c}' onclick='playGame(this)'></div>`;
+            h.innerHTML += element;
+
+            // ------------------------------- dose'nt work
+            // element = document.createElement("div");
+            // h.appendChild(element);
+            // element.id = r.toString() + "-" + c.toString();
+            // element.className = "box";
+            // element.addEventListener("click", playGame);
+            // -------------------------------
+          }
+        }
+      }
+      makeBoard();
+      player1 = "red";
+      player2 = "blue";
+      filledRow = [5, 5, 5, 5, 5, 5, 5, 5];
+      gameOver = false;
+      function playGame(el) {
+        if (!gameOver) {
+          arr = el.id.toString().split("-");
+          var r = parseInt(arr[0]);
+          var c = parseInt(arr[1]);
+          r = filledRow[c];
+          cell = document.getElementById(r.toString() + "-" + c.toString());
+          cell.style.backgroundColor = player1;
+          r--;
+          filledRow[c] = r;
+          t = player2;
+          player2 = player1;
+          player1 = t;
+          winner();
+        }
+      }
+
+      function redWins() {
+        document.getElementById("winner").style.display = "unset";
+        document.getElementById("winner").style.color = "red";
+        document.getElementById("winner").innerText = "red wins";
+      }
+
+      function blueWins() {
+        document.getElementById("winner").style.display = "unset";
+        document.getElementById("winner").style.color = "blue";
+        document.getElementById("winner").innerText = "blue wins";
+      }
+
+      function winner() {
+        //horizontal check winner
+        for (r = 0; r <= row; r++) {
+          for (c = 0; c <= column - 3; c++) {
+            cell1 = document.getElementById(`${r}-${c}`).style.backgroundColor;
+            cell2 = document.getElementById(`${r}-${c + 1}`).style
+              .backgroundColor;
+            cell3 = document.getElementById(`${r}-${c + 2}`).style
+              .backgroundColor;
+            cell4 = document.getElementById(`${r}-${c + 3}`).style
+              .backgroundColor;
+            if (
+              cell1 == "red" &&
+              cell1 == cell2 &&
+              cell2 == cell3 &&
+              cell3 == cell4
+            ) {
+              redWins();
+              gameOver = true;
+            } else if (
+              cell1 == "blue" &&
+              cell1 == cell2 &&
+              cell2 == cell3 &&
+              cell3 == cell4
+            ) {
+              blueWins();
+              gameOver = true;
+            }
+          }
+        }
+
+        // vertical check winner
+        for (c = 0; c <= column; c++) {
+          for (r = 0; r <= row - 3; r++) {
+            cell1 = document.getElementById(`${r}-${c}`).style.backgroundColor;
+            cell2 = document.getElementById(`${r + 1}-${c}`).style
+              .backgroundColor;
+            cell3 = document.getElementById(`${r + 2}-${c}`).style
+              .backgroundColor;
+            cell4 = document.getElementById(`${r + 3}-${c}`).style
+              .backgroundColor;
+            if (
+              cell1 == "red" &&
+              cell1 == cell2 &&
+              cell2 == cell3 &&
+              cell3 == cell4
+            ) {
+              redWins();
+              gameOver = true;
+            } else if (
+              cell1 == "blue" &&
+              cell1 == cell2 &&
+              cell2 == cell3 &&
+              cell3 == cell4
+            ) {
+              blueWins();
+              gameOver = true;
+            }
+          }
+        }
+      }
+    </script>
+  </body>
+</html>
