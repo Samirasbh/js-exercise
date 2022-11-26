@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      * {
+        box-sizing: border-box;
+        padding: 0;
+        margin: 0;
+      }
+      body {
+        height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background: linear-gradient(90deg, rgb(3, 183, 203), rgb(167, 46, 162));
+      }
+      .dictionary {
+        width: 600px;
+        height: 380px;
+        display: flex;
+        justify-content: space-between;
+        padding: 2em;
+        background-color: #fff;
+        border-radius: 10px;
+      }
+      form {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+      }
+      h2 {
+        margin-bottom: 2em;
+        color: rgb(3, 183, 203);
+      }
+      label {
+        font-size: 18px;
+      }
+      input {
+        border-style: none;
+        padding: 5px;
+        background-color: rgba(0, 0, 0, 0);
+        border-bottom: 1px solid rgb(73, 63, 186);
+        margin-bottom: 2em;
+      }
+      p {
+        font-size: 18px;
+        color: rgba(203, 79, 16, 0.819);
+        height: 10px;
+      }
+      button {
+        width: 150px;
+        text-align: center;
+        margin: auto;
+        padding: 1em;
+        background: linear-gradient(90deg, rgb(3, 183, 203), rgb(167, 46, 162));
+        border-style: none;
+        border-radius: 10px;
+        color: #fff;
+        font-size: 16px;
+      }
+      button:hover {
+        cursor: pointer;
+        opacity: 0.85;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="dictionary">
+      <!-- search section -->
+      <form>
+        <h2>search on dictionary</h2>
+
+        <label for="#search-word">Enter the word</label>
+        <input type="text" id="search-word" placeholder="example" />
+
+        <label for="#search-translation">translation</label>
+        <input
+          type="text"
+          id="search-translation"
+          placeholder="مثال"
+          readonly
+        />
+
+        <p id="noWord"></p>
+
+        <button type="button" onclick="searchDict()">translate</button>
+      </form>
+      <!-- add section -->
+      <form>
+        <h2>add word to dictionary</h2>
+
+        <label for="#add-word">Enter the word</label>
+        <input type="text" id="add-word" placeholder="example" />
+
+        <label for="#add-translation">Enter translation</label>
+        <input type="text" id="add-translation" placeholder="مثال" />
+
+        <p id="repetitive"></p>
+        <button type="button" onclick="addDict()">add word</button>
+      </form>
+    </div>
+
+    <!-- script file -->
+    <script>
+      dictionary = {
+        hello: "سلام",
+        goodby: "خدانگهدار",
+        ask: "پرسیدن",
+        world: "جهان",
+        question: "سوال",
+        answer: "پاسخ",
+        example: "مثال",
+        water: "آب",
+        tea: "چای",
+        coffee: "قهوه",
+      };
+
+      //   search section
+      function searchDict() {
+        str1 = document.querySelector("#search-word").value.toLowerCase();
+        if (!dictionary[str1]) {
+          document.querySelector("#noWord").innerText =
+            "this word does'nt exist!";
+        } else {
+          document.getElementById("search-translation").value =
+            dictionary[str1];
+        }
+      }
+
+      function addDict() {
+        str2 = document.querySelector("#add-word").value.toLowerCase();
+        str3 = document.querySelector("#add-translation").value;
+        if (dictionary[str2]) {
+          document.querySelector("#repetitive").innerText =
+            "this word exists in dictionary!";
+        }
+        dictionary[str2] = str3;
+      }
+    </script>
+  </body>
+</html>
