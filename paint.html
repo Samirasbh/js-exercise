@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <script src="./jquery-3.6.1.min.js"></script>
+    <link rel="stylesheet" href="paint.css" />
+    <style>
+      body {
+        height: 100vh;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+      }
+      canvas {
+        width: 400px;
+        height: 400px;
+        border: 5px solid tomato;
+        border-radius: 30px;
+      }
+    </style>
+  </head>
+  <body>
+    <canvas></canvas>
+    <div id="color-name">#fff</div>
+    <div id="color-list"></div>
+
+    <script>
+      canvas = document.querySelector("canvas");
+      ctx = canvas.getContext("2d");
+      var startX = 0;
+      var startY = 0;
+      var offsetX = canvas.offsetLeft;
+      var offsetY = canvas.offsetTop;
+      flag = false;
+      lineColor = "black";
+      lineSize = 1;
+
+      // take the start point for drawing line
+      canvas.addEventListener("mousedown", (e) => {
+        startX = e.x;
+        startY = e.y;
+        flag = true;
+      });
+
+      // condition for end point of line
+      canvas.addEventListener("mouseup", (e) => {
+        flag = false;
+      });
+
+      // drawing line
+      canvas.addEventListener("mousemove", (e) => {
+        if (flag == false) {
+          return;
+        }
+
+        ctx.strokeStyle = lineColor;
+        ctx.lineWidth = lineSize;
+        ctx.beginPath();
+        ctx.moveTo(startX - offsetX, startY - offsetY);
+        ctx.lineTo(e.x - offsetX, e.y - offsetY);
+        ctx.stroke();
+
+        startX = e.x;
+        startY = e.y;
+      });
+    </script>
+  </body>
+</html>
